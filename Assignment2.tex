@@ -176,7 +176,6 @@ columns=fullflexible
 %   \thanks{*The student is with the Department
 %     of Artificial Intelligence, Indian Institute of Technology, Hyderabad,
 %     502285, India.\\ e-mail: ai22btech11031@iith.ac.in.}
-  
  }
 %\title{
 %	\logo{Matrix Analysis through Octave}{\begin{center}\includegraphics[scale=.24]{tlc}\end{center}}{}{HAMDSP}
@@ -263,74 +262,47 @@ columns=fullflexible
 %%%%%%%%%%%%%%%%%%%%%  This is my Assignment %%%%%%%%%%%%%%%%%%%%%
 \textbf{12.13.6.18: Question}. Consider the experiment of throwing a die, if a multiple of 3 comes up, throw the die again and if any other number comes, toss a coin. Find the conditional probability
 of the event ‘the coin shows a tail’, given that ‘at least one die shows a 3’.\\\\
-\textbf{Answer: 0.5}\\\\
+\textbf{Answer: 0}\\\\
 \solution
 Using Markov Chain Approach,\\
 Let the states \textbf{S} be,
 \begin{enumerate}
-\item State 0 : The initial state.\\
-\item State 1 : 3 comes on die throw.\\
-\item State 2 : 6 comes on die throw.\\
-\item State 3 : non-multiple of 3 comes on die throw.\\
-\item State 4 : Heads comes up on coin toss.\\
-\item State 5 : Tails comes up on coin toss.\\\\
+\item State 1 : 3 or 6 comes on die throw.\\
+\item State 2 : non-multiple of 3 comes on die throw.\\
+\item State 3 : Heads comes up on coin toss.\\
+\item State 4 : Tails comes up on coin toss.\\\\
 \end{enumerate}
 \begin{itemize}
 \item The Markov Chain for the given states is as follows,
 \end{itemize}
-\begin{center}
+\begin{figure}[!ht]
+	\centering
 \begin{tikzpicture}[
     roundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
     squarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
     ->,>=stealth',auto,semithick,node distance=3cm,
     ]
-    %Nodes
-%Nodes
-
-\node[squarednode]      (S0)                              {0};
-\node[roundnode]        (S1)       [above right=2cm of S0] { 1};
-\node[squarednode]      (S3)       [right=4cm of S0] {3};
-\node[roundnode]        (S2)       [below right=2cm of S0] { 2};
-\node[roundnode]        (S4)       [above right=2cm of S3] { 4};
-\node[roundnode]        (S5)       [below right=2cm of S3] { 5};
-
-%Lines 
-\path
-(S0) edge     node[left]{$p_{02}$}     (S2)
-    edge      node{$p_{03}$}      (S3)
-    edge    node{$p_{01}$}      (S1)
-(S1) edge[loop left] node{$p_{11}$} (S1)
-    edge[bend left]     node[below right]{$p_{12}$}     (S2)
-    edge[bend left]     node{$p_{13}$}     (S3)
-(S2) edge[loop left] node{$p_{22}$} (S2)
-edge[bend left]     node[above left]{$p_{21}$}     (S1)
-    edge[bend right]     node{$p_{23}$}     (S3)
-(S3)
-    edge[bend right]      node{$p_{34}$}      (S4)
-    edge[bend left]    node{$p_{35}$}      (S5)
-(S4) edge[loop right] node{$p_{44}$} (S4)
-(S5) edge[loop right] node{$p_{55}$} (S5);
-    \node [below =3cm, align=flush center,text width=8cm] at (S3)
-        {
-            Figure: Markov Chain       
-        };
+    
+	\input{figs/fig.txt}
 \end{tikzpicture}
-\end{center}
+\end{figure}
 \begin{itemize}
 \item  Here, \textbf{States 4 and 5} are \textbf{Absorbing States} indicating that once they are reached, They cannot be left.While \textbf{States 0, 1, 2, 3} are \textbf{Transient States} whose probability will eventually become 0.\\
-\end{itemize}   
+\end{itemize}  
+\begin{align*}
+\\
+\\
+\end{align*} 
 \begin{itemize}
 \item The State Transition Matrix is as follows,
 \end{itemize}
 \begin{align}
 \textbf{A} &= 
-\begin{pmatrix}
-0 & 0 & 0 & 0 & 0 & 0 \\[4pt] 
-\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & 0 & 0 \\[4pt]
-\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & 0 & 0 \\[4pt]
-\frac{4}{6} & \frac{4}{6} & \frac{4}{6} & 0 & 0 & 0 \\[4pt]
-0 & 0 & 0 & \frac{1}{2} & 1 & 0 \\[4pt]
-0 & 0 & 0 & \frac{1}{2} & 0 & 1 \\[4pt]
+\begin{pmatrix} 
+\frac{2}{6} & 0 & 0 & 0  \\[4pt]
+\frac{4}{6} & 0 & 0 & 0 \\[4pt]
+0 & \frac{1}{2} & 1 & 0 \\[4pt]
+0 & \frac{1}{2} & 0 & 1 \\[4pt]
 \end{pmatrix}
 \end{align}
 Now, Let the Probability of state i at time t be $P_{i}^{(n)}$.Then the state vector will be: 
@@ -338,33 +310,29 @@ Now, Let the Probability of state i at time t be $P_{i}^{(n)}$.Then the state ve
 \label{eq:5}
 \mathbf{B_{n}} &= 
 \begin{pmatrix}
-P_{0}^{(n)} \\[2pt]
 P_{1}^{(n)} \\[2pt]
 P_{2}^{(n)} \\[2pt]
 P_{3}^{(n)} \\[2pt]
 P_{4}^{(n)} \\[2pt]
-P_{5}^{(n)}
 \end{pmatrix}
 \end{align}
 From here we can write probability of states one step in time after t as,
 \begin{align}
-    P_{0}^{n+1} &= 0 \\
-    P_{1}^{n+1} &= \frac{1}{6} \times P_{0}^{n} + \frac{1}{6} \times P_{1}^{n} + \frac{1}{6} \times P_{2}^{n} \\ 
-    P_{2}^{n+1} &=  \frac{1}{6} \times P_{0}^{n} + \frac{1}{6} \times P_{1}^{n} + \frac{1}{6} \times P_{2}^{n}\\
-    P_{3}^{n+1} &= \frac{4}{6} \times P_{0}^{n} + \frac{4}{6} \times P_{1}^{n} + \frac{4}{6} \times P_{2}^{n}  \\
-    P_{4}^{n+1} &= \frac{1}{2} \times P_{3}^{n} + 1 \times P_{4}^{n}   \\
-    P_{5}^{n+1} &= \frac{1}{2} \times P_{3}^{n} + 1 \times P_{5}^{n}  
+    P_{1}^{(n+1)} &=  \frac{2}{6} \times P_{1}^{(n)}  \\
+    P_{2}^{(n+1)} &=  \frac{4}{6} \times P_{1}^{(n)}\\
+    P_{3}^{(n+1)} &=  \frac{1}{2} \times P_{2}^{(n)} + 1 \times P_{3}^{(n)}  \\
+    P_{4}^{(n+1)} &= \frac{1}{2} \times P_{2}^{(n)} + 1 \times P_{4}^{(n)}   \\  
 \end{align}
 \begin{itemize}
     \item These equations can be written directly as:
 \end{itemize}
 \begin{align}
    \label{1}
-    \mathbf{B_{n+1}} &= \mathbf{A} \times \mathbf{B_{n}}
+    \mathbf{B_{n+1}} &= \mathbf{A} \mathbf{B_{n}}
 \end{align}
 To Find,
 \begin{align}
-    \lim_{n \to \infty} P_{5}^{(n)}
+    \lim_{n \to \infty} P_{4}^{(n)}
 \end{align}
 From \eqref{1},
 \begin{align}
@@ -375,40 +343,157 @@ The Initial State $\mathbf{B_{0}}$ can be denoted by given that 3 occurs atleast
 \begin{align}
 \mathbf{B_{0}} &= 
 \begin{pmatrix}
-0 \\
 1 \\
 0\\
 0\\
 0\\
-0\\
 \end{pmatrix}
 \end{align}
-The last column of $ \mathbf{A^n}$ when $n \to \infty$ can be written as,
+Now using \textbf{Eigen Decomposition} to find the Conditional Probability,
+let $\lambda$  be the eigen value for the transition matrix \textbf{A}\\
 \begin{align}
-\mathbf{A^n} &= 
+ \implies   \mid P-\lambda {I_4} \mid &= 0  
+ \end{align}
+ \begin{align}
+\implies  
+\begin{pmatrix} 
+2/6-\lambda  & 0 & 0 & 0\\[4pt]
+4/6 & -\lambda & 0 & 0\\[4pt]
+0 & 1/2 & 1-\lambda & 0\\[4pt]
+0 & 1/2 & 0 & 1-\lambda
+\end{pmatrix}
+= 0
+\end{align}
+ \begin{align}
+ \implies (\frac{2}{6} - \lambda)(-\lambda)(1 - \lambda^2) = 0
+ \end{align}
+ \begin{align}
+ \implies \lambda = \frac{2}{6}, 0 , 1 , 1 
+ \end{align}
+ Now Finding the eigen vectors,Lets assume it to be E\\
+\begin{align}
+\mathbf{E} &= 
 \begin{pmatrix}
-. & . & . & . & . & . \\
-. & . & . & . & . & . \\
-. & . & . & . & . & . \\
-. & . & . & . & . & . \\
-. & . & . & . & . & . \\
-\frac{1}{2} & \frac{1}{2} & \frac{1}{2} & \frac{1}{2} & 0 & 1 \\[4pt]
+a \\
+b\\
+c\\
+d\\
 \end{pmatrix}
 \end{align}
-And,
 \begin{align}
-\lim_{n \to \infty} \mathbf{B_{n}} &= 
+\implies (A - \lambda I)E &= 0
+\end{align}
+\begin{enumerate}
+\item $\lambda = \frac{2}{6}$
+\begin{align}
+\mathbf{E} &= 
 \begin{pmatrix}
-. \\
-. \\
-. \\
-. \\
-. \\
-0.5
+-\frac{2}{3} \\[4pt]
+-\frac{4}{3}\\[4pt]
+1\\[4pt]
+1\\[4pt]
 \end{pmatrix}
-\end{align} 
-Hence From \eqref{eq:5},
-\begin{align} 
-\implies \lim_{n \to \infty} P_{5}^{(n)} &= 0.5
-\end{align} 
-\end{document} 
+\end{align}
+\item $\lambda = 0$
+\begin{align}
+\mathbf{E} &= 
+\begin{pmatrix}
+0 \\[4pt]
+-2\\[4pt]
+1\\[4pt]
+1\\[4pt]
+\end{pmatrix}
+\end{align}
+\item $\lambda = 1$
+\begin{align}
+\mathbf{E} &= 
+\begin{pmatrix}
+0 \\[4pt]
+0\\[4pt]
+1\\[4pt]
+0\\[4pt]
+\end{pmatrix}
+,
+\begin{pmatrix}
+0 \\[4pt]
+0\\[4pt]
+0\\[4pt]
+1\\[4pt]
+\end{pmatrix}
+\end{align}
+\end{enumerate}
+Now, forming the eigenvector matrix from all the value of \textbf{E} obtained,Lets assume it to be \textbf{X}\\
+\begin{align}
+\mathbf{X} &=
+\begin{pmatrix}
+-2/3 & 0 & 0 & 0\\
+-4/3 & -2 & 0 & 0\\
+1 & 1 & 1 & 0\\
+1 & 1 & 0 & 1
+\end{pmatrix}
+\end{align}
+Now, we can also write A as :\\
+\begin{align}
+A &= XZX^{-1}
+\end{align}
+Where Z is eigenvalue matrix,\\
+\begin{align}
+\mathbf{Z} &=
+\begin{pmatrix}
+1/3 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\end{align}
+We also know,
+\begin{align}
+B_n &= A^{n}B_0
+\end{align}
+and
+\begin{align}
+A^{n} &= (XZX^{-1})(XZX^{-1}) \dots (XZX^{-1})\\
+\implies A^{n} &= XZ^{n}X^{-1}\\
+\implies \lim_{n \to \infty}A^{n} &= \lim_{n \to \infty}XZ^{n}X^{-1}
+\end{align}
+Now,
+\begin{align}
+\mathbf{\lim_{n \to \infty}Z^{n}} &= 
+\begin{pmatrix}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+\end{pmatrix}
+\end{align}
+\begin{align}
+\implies \mathbf{\lim_{n \to \infty}XZ^{n}X^{-1}} &= 
+\begin{pmatrix}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}
+ = \mathbf{A^{n}}
+ \end{align}
+\begin{align}
+\implies \mathbf{\lim_{n \to \infty}B_n} &=
+\begin{pmatrix}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+\end{pmatrix} \mathbf{B_0}\\
+\implies \mathbf{\lim_{n \to \infty}B_n} &= 
+\begin{pmatrix}
+0 \\[4pt]
+0\\[4pt]
+0\\[4pt]
+0\\[4pt]
+\end{pmatrix}
+\end{align}
+From here we can say that the Required Conditional Probability is,
+\begin{align}
+    \lim_{n \to \infty} P_{4}^{(n)} &= 0
+\end{align}
+\end{document}
