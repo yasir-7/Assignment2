@@ -1,0 +1,18 @@
+\node[squarednode]        (S1)                        { 1};
+\node[roundnode]        (S2)       [right=2cm of S1] { 2};
+\node[roundnode]        (S3)       [above right=2cm of S2] { 3};
+\node[roundnode]        (S4)       [below right=2cm of S2] { 4};
+
+%Lines 
+\path
+(S1) edge[loop left] node{$p_{11}$} (S1)
+    edge     node[below right]{$p_{12}$}     (S2)
+(S2) edge[bend right]     node{$p_{24}$}     (S4)
+    edge[bend left]     node{$p_{23}$}     (S3)
+(S4) edge[loop right] node{$p_{44}$} (S4)
+(S3) edge[loop right] node{$p_{33}$} (S3);
+
+\node [below=3cm, align=flush center,text width=8cm] at (S2)
+        {
+            $Fig.1:Markov Chain$
+        };
