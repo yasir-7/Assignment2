@@ -20,6 +20,7 @@
 \usepackage{tkz-euclide} % loads  TikZ and tkz-base
 \usepackage{listings}
 \usetikzlibrary{positioning}
+\usepackage{caption}
 %
 %\usepackage{setspace}
 %\usepackage{gensymb}
@@ -285,6 +286,9 @@ Let the states \textbf{S} be,
     
 	\input{figs/fig.txt}
 \end{tikzpicture}
+\centering
+		\caption{Markov Chain}
+		\label{output}
 \end{figure}
 \begin{itemize}
 \item  Here, \textbf{States 4 and 5} are \textbf{Absorbing States} indicating that once they are reached, They cannot be left.While \textbf{States 0, 1, 2, 3} are \textbf{Transient States} whose probability will eventually become 0.\\
@@ -484,6 +488,7 @@ Now,
 0 & 0 & 1 & 0\\
 0 & 0 & 0 & 1\\
 \end{pmatrix} \mathbf{B_0}\\
+\label{eq:5}
 \implies \mathbf{\lim_{n \to \infty}B_n} &= 
 \begin{pmatrix}
 0 \\[4pt]
@@ -492,8 +497,27 @@ Now,
 0\\[4pt]
 \end{pmatrix}
 \end{align}
-From here we can say that the Required Conditional Probability is,
+From here we can say that the Stationary Probability is,
 \begin{align}
     \lim_{n \to \infty} P_{4}^{(n)} &= 0
 \end{align}
+To check whether the Required conditional probability is equal to the Stationary probability we will use concept of detailed balance, which is 
+\begin{align}
+z(i)p_{ij} &= z(j)p_{ji}
+\end{align}
+\begin{itemize}
+\item where \textbf{z(i)} represents the probability of being in \textbf{state i}
+\item If this condition satisfies for all states, then we can say that the obtained stationary probability is equal to the required condiitional probability.
+\end{itemize}
+From \eqref{eq:5}, We can say that as $n \to \infty$, \textbf{z(i)} = 0 for all states i.
+\begin{align}
+\implies z(i)p_{ij} &= z(j)p_{ji} = 0
+\end{align}
+\centering
+$\therefore$ Obtained Stationary Probability = Required Conditional Probability\\
+\begin{align}
+ \implies   \lim_{n \to \infty} P_{4}^{(n)} &= 0
+\end{align} 
+\centering
+Required Conditional probability
 \end{document}
